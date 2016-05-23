@@ -1,0 +1,23 @@
+package main
+
+import (
+	"github.com/gorilla/mux"
+	h "handlers"
+	"net/http"
+)
+
+const (
+	GET = "GET"
+)
+
+func get(r *mux.Router, path string, f h.Handler) {
+	r.HandleFunc("/", h.ErrorHandler(f)).Methods(GET)
+}
+
+func main() {
+
+	r := mux.NewRouter()
+	get(r, "/", h.RootHandler)
+	get(r, "/hello/", h.HelloHandler)
+	http.ListenAndServe(":8000", nil)
+}
