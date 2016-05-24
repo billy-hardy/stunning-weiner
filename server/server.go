@@ -3,8 +3,8 @@ package main
 import (
 	h "github.com/billy-hardy/ic-weiner/handlers"
 	"github.com/gorilla/mux"
-	"net/http"
 	"log"
+	"net/http"
 )
 
 const (
@@ -16,10 +16,9 @@ func get(r *mux.Router, path string, f h.Handler) {
 }
 
 func main() {
-
 	r := mux.NewRouter()
 	get(r, "/", h.RootHandler)
-	get(r, "/reverse/{word}", h.HelloHandler)
+	get(r, "/reverse/{word}", h.ReverseStringHandler)
 	log.Fatal(listenAndServe(":8080", r))
 }
 

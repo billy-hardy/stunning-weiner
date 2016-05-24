@@ -15,7 +15,7 @@ func RootHandler(w http.ResponseWriter, r *http.Request) error {
 	return ServeContent(w, r, "<h1>Server is running.</h1>", http.StatusOK)
 }
 
-func HelloHandler(w http.ResponseWriter, r *http.Request) error {
+func ReverseStringHandler(w http.ResponseWriter, r *http.Request) error {
 	params := mux.Vars(r)
 	return ServeContent(w, r, stringutils.Reverse(params["word"]), http.StatusOK)
 }
