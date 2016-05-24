@@ -1,8 +1,8 @@
 package main
 
 import (
+	h "github.com/billy-hardy/ic-weiner/handlers"
 	"github.com/gorilla/mux"
-	h "handlers"
 	"net/http"
 )
 
