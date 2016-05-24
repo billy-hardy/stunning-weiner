@@ -4,6 +4,7 @@ import (
 	h "github.com/billy-hardy/ic-weiner/handlers"
 	"github.com/gorilla/mux"
 	"net/http"
+	"log"
 )
 
 const (
@@ -19,7 +20,7 @@ func main() {
 	r := mux.NewRouter()
 	get(r, "/", h.RootHandler)
 	get(r, "/reverse/{word}", h.HelloHandler)
-	listenAndServe(":8080", r)
+	log.Fatal(listenAndServe(":8080", r))
 }
 
 func listenAndServe(addr string, handler http.Handler) error {
