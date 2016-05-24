@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"fmt"
-	"github.com/billy-hardy/stringutils"
+	"github.com/billy-hardy/ic-weiner/stringutils"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
