@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/billy-hardy/ic-weiner/stringutils"
 	"github.com/gorilla/mux"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
@@ -16,8 +17,35 @@ func RootHandler(w http.ResponseWriter, r *http.Request) error {
 }
 
 func ReverseStringHandler(w http.ResponseWriter, r *http.Request) error {
+	r.ParseForm()
+	fmt.Println(r.Form["url_long"])
 	params := mux.Vars(r)
 	return ServeContent(w, r, stringutils.Reverse(params["word"]), http.StatusOK)
+}
+
+func LoginPageHandler(w http.ResponseWriter, r *http.Request) error {
+	page, err := ioutil.ReadFile("html/login.html")
+	if err != nil {
+		return ServeContent(w, r, "page not found", http.StatusNotFound)
+	}
+	return ServeContent(w, r, string(page[:]), http.StatusOK)
+}
+
+func RequestLoginHandler(w http.ResponseWriter, r *http.Request) error {
+	username := r.FormValue("username")
+	password := r.FormValue("password")
+	if len(username) == 0 {
+		return ServeContent(w, r, "Username is required, please try login again", http.StatusBadRequest)
+	}
+	if len(password) == 0 {
+		return ServeContent(w, r, "Password is required, please try login again", http.StatusBadRequest)
+	}
+	log.Printf("user %v logged in with password %v", username, password)
+	return ServeContent(w, r, "Login Successful", http.StatusOK)
+}
+
+func ErrorTestHandler(w http.ResponseWriter, r *http.Request) error {
+	return Error("test")
 }
 
 func ErrorHandler(f Handler) http.HandlerFunc {
