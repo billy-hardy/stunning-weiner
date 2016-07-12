@@ -44,8 +44,12 @@ func RequestLoginHandler(w http.ResponseWriter, r *http.Request) error {
 	return ServeContent(w, r, "Login Successful", http.StatusOK)
 }
 
-func ErrorTestHandler(w http.ResponseWriter, r *http.Request) error {
-	return Error("test")
+func MoveHandler(w http.ResponseWriter, r *http.Request) error {
+	return ServeContent(w, r, "", http.StatusOK)
+}
+
+func GameStatusHandler(w http.ResponseWriter, r *http.Request) error {
+	return ServeContent(w, r, "", http.StatusOK)
 }
 
 func ErrorHandler(f Handler) http.HandlerFunc {
